@@ -25,6 +25,11 @@ $downSince;
  */
 $notificationRecipient = "email_address_goes_here";
 
+if (PHP_VERSION_ID < 70100) {
+    echo "Your current PHP version is not high enough. Please upgrade to PHP 7.1 or higher.";
+    exit;
+}
+
 for ($i=0; $i < MAX_RETRIES; $i++) {
     $request = new Request();
     if ($request->httpStatusCode() == 200) {
