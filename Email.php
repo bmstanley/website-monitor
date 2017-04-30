@@ -77,7 +77,7 @@ class Email
         $mail->FromName = $this->fromName;
 
         if (!is_array($recipient)) {
-            $recipient[] = $recipient;
+            $recipient = [$recipient];
         }
         foreach ($recipient as $email) {
             $mail->addAddress($email);
