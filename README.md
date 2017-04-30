@@ -6,8 +6,12 @@ Clone the repo on a machine running PHP 7.1 or higher.
 ```
 git clone https://github.com/bmstanley/website-monitor.git
 ```
+Install dependencies via Composer
+```
+composer install
+```
 
-After install, you will need to go into a few files and update some of the variable values.
+After install is complete, you will need to go into a few files and update some of the variable values.
 
 ### Request Class
 Change ```$url``` to the website address that you want to monitor.
