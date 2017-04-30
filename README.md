@@ -11,18 +11,13 @@ Install dependencies via Composer
 composer install
 ```
 
-After install is complete, you will need to go into a few files and update some of the variable values.
+After install is complete, you will need to update settings in config/config.php.
 
 ### Request Class
-Change ```$url``` to the website address that you want to monitor.
+Set ```url``` to one or more website addresses that you want to monitor.
 
 ### Email Class
-Change the following properties:
-```$from``` to your "From" email address.
-```$password``` to your "From" email address login password.
-
-### Index.php
-Change ```$notificationRecipient``` to the desired "To" email address(es).
+Set ```fromAddress``` to your "From" email address, set ```fromPassword``` to your "From" email address login password, and set ```recipients``` to one or more email alert recipients.
 
 ## Run the script
 Simply open your command line interface (CLI) tool of choice and run the following command:

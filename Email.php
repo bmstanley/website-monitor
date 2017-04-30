@@ -2,7 +2,7 @@
 
 require_once "vendor/autoload.php";
 
-class Email
+class Email extends BaseClass
 {
     /**
      * Secure protocol to be used to connect to email host
@@ -32,7 +32,7 @@ class Email
      * Email from address
      * @var string
      */
-    private $from = 'email_address_goes_here';
+    private $from;
 
     /**
      * Email from plain name
@@ -44,7 +44,7 @@ class Email
      * Email from password
      * @var string
      */
-    private $password = 'top_secret_password';
+    private $password;
 
     /**
      * Random call to action phrase for email body
@@ -59,11 +59,16 @@ class Email
 
     /**
      * Create and send an email
-     * @param string|array $recipient One or more email recipients
+     * @param array $recipients One or more email recipients
      * @param string $customMessage Custom message to be inserted into the body of the email
      */
-    public function __construct($recipient, $customMessage = null)
+    public function __construct(array $recipients, string $customMessage = null)
     {
+        parent::__construct();
+
+        $this->from = $this->config['email']['fromAddress'];
+        $this->password = $this->config['email']['fromPassword'];
+
         $mail = new PHPMailer;
         $mail->isSMTP();
         $mail->Host = $this->smtpHost;
@@ -76,11 +81,8 @@ class Email
         $mail->From = $this->from;
         $mail->FromName = $this->fromName;
 
-        if (!is_array($recipient)) {
-            $recipient = [$recipient];
-        }
-        foreach ($recipient as $email) {
-            $mail->addAddress($email);
+        foreach ($recipients as $recipient) {
+            $mail->addAddress($recipient);
         }
 
         $mail->isHTML(true);
@@ -93,8 +95,10 @@ class Email
         $mail->Body .= "<p>".$this->emailBody[array_rand($this->emailBody)]."</p>";
 
         if (!$mail->send()) {
+            echo $mail->ErrorInfo;
             return false;
         }
+        echo "email sent successfully";
         return true;
     }
 }

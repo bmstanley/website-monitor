@@ -1,12 +1,12 @@
 <?php
 
-class Request
+class Request extends BaseClass
 {
     /**
      * Website URL to test
      * @var string
      */
-    public $url = 'best_website_ever';
+    public $url;
 
     /**
      * HTTP status code
@@ -17,10 +17,17 @@ class Request
     /**
      * Default request timeout
      */
-    const TIMEOUT = 120;
+    private const TIMEOUT = 120;
 
-    public function __construct()
+    /**
+     * Create a new request
+     * @param string $url The URL to test in the request
+     */
+    public function __construct(string $url)
     {
+        parent::__construct();
+
+        $this->url = $url;
         $curl = curl_init($this->url);
         curl_setopt_array($curl, [
             CURLOPT_RETURNTRANSFER => true,
@@ -41,5 +48,14 @@ class Request
     public function httpStatusCode() : int
     {
         return $this->httpStatusCode;
+    }
+
+    /**
+     * Return the URL to which the request was sent
+     * @return string Requested URL
+     */
+    public function url() : string
+    {
+        return $this->url;
     }
 }
