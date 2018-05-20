@@ -1,6 +1,10 @@
 <?php
 
-return [
+/**
+ * Contains all configuration information
+ */
+
+$config = [
     'request' => [
         'url' => ['full_website_address']
     ],
